@@ -12,10 +12,12 @@ def run(context):
         locPerContribution = {}
 
     if pages is None:
-        pages = {}
+        pages = []
+    else:
+        pages = pages["pages"]
 
     contributions = {}
-    for item in pages["pages"]:
+    for item in pages:
         namespace = item["namespace"]
         if namespace == "Contribution":
             title = item["title"]
