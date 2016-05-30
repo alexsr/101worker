@@ -8,6 +8,12 @@ def run(context):
     locPerContribution = context.read_dump('locPerContribution')
     pages = context.read_dump('pages')
 
+	if locPerContribution is None:
+        locPerContribution = {}
+	
+	if pages is None:
+        pages = {}
+		
     correlation = {}
     env.write_dump('CorrelationLocFeatures', correlation)
 
