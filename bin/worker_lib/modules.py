@@ -20,7 +20,8 @@ modules = [
     'wiki2tagclouds',
     'moretagclouds',
     'zip',
-    'mongodump'
+    'mongodump',
+    'correlationLocFeatures'
 ]
 
 modules = [import_module(module) for module in modules]
