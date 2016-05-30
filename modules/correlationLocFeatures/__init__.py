@@ -5,6 +5,9 @@ config = {
 }
 
 def run(context):
+  locPerContribution = context.read_dump('locPerContribution')
+  pages = context.read_dump('pages')
+
 
 import unittest
 from unittest.mock import Mock, patch
