@@ -8,14 +8,23 @@ def run(context):
     locPerContribution = context.read_dump('locPerContribution')
     pages = context.read_dump('pages')
 
-	if locPerContribution is None:
+    if locPerContribution is None:
         locPerContribution = {}
-	
-	if pages is None:
+
+    if pages is None:
         pages = {}
-		
+
+    contributions = {}
+    for item in pages["pages"]:
+        namespace = item["namespace"]
+        if namespace == "Contribution":
+            title = item["title"]
+            usesdLinks = item["used_links"]
+            contributions[title] = usesdLinks
+
     correlation = {}
-    env.write_dump('CorrelationLocFeatures', correlation)
+    env.write_dump('correlationLocFeatures', correlation)
+
 
 import unittest
 from unittest.mock import Mock, patch
