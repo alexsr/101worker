@@ -11,18 +11,16 @@ def run(context):
     if locPerContribution is None:
         locPerContribution = {}
 
-    if pages is None:
-        pages = []
-    else:
+    if pages is not None and "pages" in pages.keys():
         pages = pages["pages"]
+    else:
+        pages = []
 
     contributions = {}
     for item in pages:
-        namespace = item["namespace"]
-        if namespace == "Contribution":
-            title = item["title"]
-            usesdLinks = item["used_links"]
-            contributions[title] = usesdLinks
+        if "namespace" in item.keys():
+            if item["namespace"] == "Contribution" and "title" in item.keys() and "used_links" in item.keys():
+                contributions[item["title"]] = item["used_links"]
 
     correlation = {}
     env.write_dump('correlationLocFeatures', correlation)

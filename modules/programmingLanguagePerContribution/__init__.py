@@ -8,10 +8,10 @@ config = {
 def run(context):
     pages = context.read_dump('pages')
 
-    if pages is None:
-        pages = []
-    else:
+    if pages is not None and "pages" in pages.keys():
         pages = pages["pages"]
+    else:
+        pages = []
 
 # What this does: 1. Get list of all programming languages:
 #                     (loop through namespace language, select those who are "programming" languages)
@@ -19,23 +19,23 @@ def run(context):
 
     languages = []
     for item in pages:
-        if item["namespace"] == "Language":
-            title = item["title"]
-            for x in item["used_links"]:
-                if "programming language" in x:
-                    languages += [title]
-                    break;
+        if "namespace" in item.keys() and item["namespace"] == "Language":
+           if "title" in item.keys() and "used_links" in item.keys():
+                title = item["title"]
+                for x in item["used_links"]:
+                    if "programming language" in x:
+                        languages += [title]
+                        break;
 
     contributions = {}
     for item in pages:
-        if item["namespace"] == "Contribution":
-            title = item["title"]
-            contributions[title] = []
-            for l in languages:
-                contributions[title] += [l] if "Uses::Language:"+l in item["used_links"] else []
-    print(contributions)
+        if "namespace" in item.keys() and item["namespace"] == "Contribution":
+            if "title" in item.keys() and "used_links" in item.keys():
+                title = item["title"]
+                contributions[title] = []
+                for l in languages:
+                    contributions[title] += [l] if "Uses::Language:"+l in item["used_links"] else []
     context.write_dump('programmingLanguagePerContribution', contributions)
-
 
 import unittest
 from unittest.mock import Mock, patch
