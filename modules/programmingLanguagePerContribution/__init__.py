@@ -18,19 +18,19 @@ def run(context):
 
     languages = []
     for item in pages:
-        namespace = item["namespace"]
-        if namespace == "Language":
+        if item["namespace"] == "Language":
             title = item["title"]
-            usedLinks = item["used_links"]
-            for x in usedLinks:
-                if "programming language" in x and title not in languages:
-                    languages.append(title)
+            for x in item["used_links"]:
+                if "programming language" in x:
+                    languages += [title]
+                    break;
+            if "programming language" in item["raw_content"] and title not in languages:
+                languages += [title]
     print(languages)
 
     contributions = {}
     for item in pages:
-        namespace = item["namespace"]
-        if namespace == "Contribution":
+        if item["namespace"] == "Contribution":
             title = item["title"]
             usedLinks = item["used_links"]
             contributions[title] = [x for x in languages if [True for i in usedLinks if "Uses::Language:"+x in usedLinks]]
