@@ -23,9 +23,9 @@ def run(context):
             title = item["title"]
             usedLinks = item["used_links"]
             for x in usedLinks:
-                if "programming" in x and title not in languages:
+                if "programming language" in x and title not in languages:
                     languages.append(title)
-    #print(languages)
+    print(languages)
 
     contributions = {}
     for item in pages:
