@@ -93,7 +93,7 @@ class ProgrammingLanguagePerContribution(unittest.TestCase):
         run(self.env)
         self.env.write_dump.assert_called_with('programmingLanguagePerContribution', {'javaJson': ['Java']})
 
-    def test_empgy(self):
+    def test_empty(self):
         self.env.read_dump.return_value = {}
         run(self.env)
         self.env.write_dump.assert_called_with('programmingLanguagePerContribution', {})
