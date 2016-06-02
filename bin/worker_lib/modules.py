@@ -17,6 +17,7 @@ modules = [
     'languageFrequency',
     'simpleLOC',
     'locPerContribution',
+    'programmingLanguagePerContribution',
     'wiki2tagclouds',
     'moretagclouds',
     'zip',
