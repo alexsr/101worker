@@ -17,13 +17,16 @@ def run(context):
 #        2. Loop through contributions in wiki pages (see below) and search for "Uses::Language:<language>"
 #        3. Write <contribution>: <language> in JSON as example below does it for Java
 
+    languages = ["Java"]
+
     contributions = {}
-    for item in pages:
-        namespace = item["namespace"]
-        if namespace == "Contribution":
-            title = item["title"]
-            usedLinks = item["used_links"]
-            contributions[title] = ["Java" if [True for i in usedLinks if "Uses::Language:Java" in usedLinks] else None]
+    for x in languages:
+        for item in pages:
+            namespace = item["namespace"]
+            if namespace == "Contribution":
+                title = item["title"]
+                usedLinks = item["used_links"]
+                contributions[title] = [x if [True for i in usedLinks if "Uses::Language:"+x in usedLinks] else None]
     print(contributions)
     context.write_dump('programmingLanguagePerContribution', contributions)
 
