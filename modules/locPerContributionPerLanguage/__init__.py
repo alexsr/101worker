@@ -1,5 +1,4 @@
 import os
-import json
 
 config = {
     'wantdiff': False,
@@ -33,7 +32,7 @@ def run(env, res):
     env.write_dump('locPerContributionPerLanguage', data)
 
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 class LocPerContributionPerLanguage(unittest.TestCase):
 
