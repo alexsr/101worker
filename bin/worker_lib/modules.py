@@ -22,7 +22,8 @@ modules = [
     'moretagclouds',
     'zip',
     'mongodump',
-    'correlationLocFeatures'
+    'correlationLocFeatures',
+    'locPerContributionPerLanguage'
 ]
 
 modules = [import_module(module) for module in modules]
