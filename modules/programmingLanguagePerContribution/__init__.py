@@ -12,12 +12,20 @@ def run(context):
     else:
         pages = pages["pages"]
 
-# To Do: 1. Get list of all programming languages:
-#             (loop through namespace language, select those who are "programming" languages)
-#        2. Loop through contributions in wiki pages (see below) and search for "Uses::Language:<language>"
-#        3. Write <contribution>: <language> in JSON as example below does it for Java
+# What this does: 1. Get list of all programming languages:
+#                     (loop through namespace language, select those who are "programming" languages)
+#                 2. Loop through contributions in wiki pages (see below) and search for "Uses::Language:<language>"
 
-    languages = ["Java", "Ruby", "Python", "Haskell"]
+    languages = []
+    for item in pages:
+        namespace = item["namespace"]
+        if namespace == "Language":
+            title = item["title"]
+            usedLinks = item["used_links"]
+            for x in usedLinks:
+                if "programming" in x and title not in languages:
+                    languages.append(title)
+    #print(languages)
 
     contributions = {}
     for item in pages:
@@ -26,7 +34,7 @@ def run(context):
             title = item["title"]
             usedLinks = item["used_links"]
             contributions[title] = [x for x in languages if [True for i in usedLinks if "Uses::Language:"+x in usedLinks]]
-    print(contributions)
+    #print(contributions)
     context.write_dump('programmingLanguagePerContribution', contributions)
 
 
