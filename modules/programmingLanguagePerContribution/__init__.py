@@ -29,8 +29,9 @@ def run(context):
     for item in pages:
         if item["namespace"] == "Contribution":
             title = item["title"]
-            usedLinks = item["used_links"]
-            contributions[title] = [x for x in languages if [True for i in usedLinks if "Uses::Language:"+x in usedLinks]]
+            contributions[title] = []
+            for l in languages:
+                contributions[title] += [l] if "Uses::Language:"+l in item["used_links"] else []
     #print(contributions)
     context.write_dump('programmingLanguagePerContribution', contributions)
 
