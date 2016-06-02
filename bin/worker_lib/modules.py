@@ -17,13 +17,13 @@ modules = [
     'languageFrequency',
     'simpleLOC',
     'locPerContribution',
-    'programmingLanguagePerContribution',
     'wiki2tagclouds',
     'moretagclouds',
     'zip',
     'mongodump',
     'correlationLocFeatures',
-    'locPerContributionPerLanguage'
+    'locPerContributionPerLanguage',
+    'programmingLanguagePerContribution'
 ]
 
 modules = [import_module(module) for module in modules]
