@@ -24,9 +24,6 @@ def run(context):
                 if "programming language" in x:
                     languages += [title]
                     break;
-            if "programming language" in item["raw_content"] and title not in languages:
-                languages += [title]
-    print(languages)
 
     contributions = {}
     for item in pages:
