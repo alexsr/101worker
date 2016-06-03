@@ -12,7 +12,7 @@ the contributions themselves or any other primary or derived resource.
 
 This module uses the wiki ("pages") dump to extract programming languages, contributions and the associations between the two.
 It assumes contributions are properly tagged (with "Uses::Language:...") and programming languages are properly declared as such
-(e.g. "OO prgramming language", "programming language", "functional programming language")
+(e.g. "OO programming language", "programming language", "functional programming language")
 
 # Issues
 
