@@ -5,7 +5,7 @@ config = {
     'wantsfiles': True,
     'threadsafe': False,
     'behavior': {
-        'creates': [['dump', 'locPerContributionPerLanguage']],
+        'creates': [['dump', 'locPerLanguagePerContribution']],
         'uses': [
             ['resource', 'loc'],
             ['resource', 'lang']
@@ -13,8 +13,18 @@ config = {
     }
 }
 
+'''
+Creates a dump containing the lines of code of each language used in each contribution. Example:
+{ "jdom": {
+    "Java": 10,
+    "Plain Text": 3
+  }
+}
+This module solely relies on derived resources. Namely the loc and the lang resource. In this manner we can associate languages and lines of code per file to get a more accurate display of the languages used in the contribution.
+'''
+
 def run(env, res):
-    data = env.read_dump('locPerContributionPerLanguage')
+    data = env.read_dump('locPerLanguagePerContribution')
 
     if data is None:
         data = {}
@@ -29,12 +39,12 @@ def run(env, res):
             data[contribution][language] = 0
         data[contribution][language] += env.get_derived_resource(f, 'loc')
 
-    env.write_dump('locPerContributionPerLanguage', data)
+    env.write_dump('locPerLanguagePerContribution', data)
 
 import unittest
 from unittest.mock import Mock
 
-class LocPerContributionPerLanguage(unittest.TestCase):
+class LocPerLanguagePerContribution(unittest.TestCase):
 
     def setUp(self):
         self.env = Mock()
@@ -51,7 +61,7 @@ class LocPerContributionPerLanguage(unittest.TestCase):
                 return 15
         self.env.get_derived_resource.side_effect = run_side_effect
         run(self.env, res)
-        self.env.write_dump.assert_called_with('locPerContributionPerLanguage', {'python': {"Python": 42, "Plain Text": 15}})
+        self.env.write_dump.assert_called_with('locPerLanguagePerContribution', {'python': {"Python": 42, "Plain Text": 15}})
 
     def test_run_same_lang(self):
       res = {
@@ -64,7 +74,7 @@ class LocPerContributionPerLanguage(unittest.TestCase):
             return 15
             self.env.get_derived_resource.side_effect = run_side_effect
             run(self.env, res)
-            self.env.write_dump.assert_called_with('locPerContributionPerLanguage', {'python': {"Python": 57}})
+            self.env.write_dump.assert_called_with('locPerLanguagePerContribution', {'python': {"Python": 57}})
     def test_new_contribution(self):
         res = {
             'file': 'contributions' + os.sep + 'ruby' + os.sep + 'sample.ruby'
@@ -76,16 +86,16 @@ class LocPerContributionPerLanguage(unittest.TestCase):
                 return 15
         self.env.get_derived_resource.side_effect = new_contribution_side_effect
         run(self.env, res)
-        self.env.write_dump.assert_called_with('locPerContributionPerLanguage', {'python': {"Python": 42}, 'ruby': {"Ruby": 15}})
+        self.env.write_dump.assert_called_with('locPerLanguagePerContribution', {'python': {"Python": 42}, 'ruby': {"Ruby": 15}})
 
     def test_run_no_contribution(self):
         res = {
             'file': 'something' + os.sep + 'ruby' + os.sep + 'sample.ruby'
         }
         run(self.env, res)
-        self.env.write_dump.assert_called_with('locPerContributionPerLanguage', {'python': {"Python": 42}})
+        self.env.write_dump.assert_called_with('locPerLanguagePerContribution', {'python': {"Python": 42}})
 
 
 def test():
-    suite = unittest.TestLoader().loadTestsFromTestCase(LocPerContributionPerLanguage)
+    suite = unittest.TestLoader().loadTestsFromTestCase(LocPerLanguagePerContribution)
     unittest.TextTestRunner(verbosity=2).run(suite)

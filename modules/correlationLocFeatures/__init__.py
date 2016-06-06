@@ -6,7 +6,7 @@ config = {
 
 def run(context):
     locPerContribution = context.read_dump('locPerContribution')
-    loc_pc_pl = context.read_dump('locPerContributionPerLanguage')
+    loc_pc_pl = context.read_dump('locPerLanguagePerContribution')
     plang_per_contrib = context.read_dump('programmingLanguagePerContribution')
     pages = context.read_dump('pages')
 
