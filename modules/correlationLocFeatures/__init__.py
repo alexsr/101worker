@@ -32,7 +32,7 @@ def run(context):
             locs_per_language[l] += lang_locs[l]
 
     correlation = {}
-    env.write_dump('correlationLocFeatures', correlation)
+    context.write_dump('correlationLocFeatures', correlation)
 
 import unittest
 from unittest.mock import Mock, patch
