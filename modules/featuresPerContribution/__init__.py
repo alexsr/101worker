@@ -2,6 +2,11 @@ config = {
     'wantdiff': False,
     'wantsfiles': False,
     'threadsafe': True,
+    'behavior': {
+        'creates': [['dump', 'featuresPerContribution']],
+        'uses': [['dump', 'pages']]
+    }
+
 }
 
 
