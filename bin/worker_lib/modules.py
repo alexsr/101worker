@@ -22,7 +22,7 @@ modules = [
     'zip',
     'mongodump',
     'correlationLocFeatures',
-    'locPerContributionPerLanguage',
+    'locPerLanguagePerContribution',
     'programmingLanguagePerContribution',
     'featuresPerContribution'
 ]
