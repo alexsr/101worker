@@ -45,7 +45,18 @@ class FeaturesPerContribution(unittest.TestCase):
 
     def setUp(self):
     	self.env=Mock()
-    	self.env.read_dump.return_value={}
+    	self.env.read_dump.return_value={
+    	}
+
+    def test_pages(self):
+        run(self.env)
+        self.env.write_dump.assert_called_with('featuresPerContribution', {'javaJson': ['Hierarchical company','Mapping','Parsing','Total','Cut']})
+
+    def test_empty(self):
+        self.env.read_dump.return_value = {}
+        run(self.env)
+        self.env.write_dump.assert_called_with('featuresPerContribution', {})
+
 
 
 def test():
