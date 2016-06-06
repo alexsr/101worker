@@ -4,6 +4,7 @@ config = {
     'threadsafe': True,
 }
 
+
 def run(context):
     pages = context.read_dump('pages')
 
@@ -13,17 +14,23 @@ def run(context):
         pages = []
 
 
-
     features = []
     for item in pages:
         if "namespace" in item.keys() and item["namespace"] == "Feature":
            if "title" in item.keys() and "used_links" in item.keys():
                 title = item["title"]
                 features += [title]
-    print(features)
 
 
-
+    contributions = {}
+    for item in pages:
+        if "namespace" in item.keys() and item["namespace"] == "Contribution":
+            if "title" in item.keys() and "used_links" in item.keys():
+                title = item["title"]
+                contributions[title] = []
+                for f in features:
+                    contributions[title] += [f] if "Implements::Feature:"+f in item["used_links"] else []
+    context.write_dump('featuresPerContribution', contributions)
 
 
 import unittest
@@ -34,8 +41,6 @@ class FeaturesPerContribution(unittest.TestCase):
     def setUp(self):
     	self.env=Mock()
     	self.env.read_dump.return_value={}
-
-
 
 
 def test():
