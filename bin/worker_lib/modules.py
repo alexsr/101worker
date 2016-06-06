@@ -23,7 +23,8 @@ modules = [
     'mongodump',
     'correlationLocFeatures',
     'locPerContributionPerLanguage',
-    'programmingLanguagePerContribution'
+    'programmingLanguagePerContribution',
+    'featuresPerContribution'
 ]
 
 modules = [import_module(module) for module in modules]
