@@ -1,7 +1,15 @@
 config = {
     'wantdiff': False,
     'wantsfiles': False,
-    'threadsafe': True
+    'threadsafe': True,
+    'behavior': {
+        'creates': [['dump', 'correlationLocFeatures']],
+        'uses': [
+            ['dump', 'featuresPerContribution'],
+            ['dump', 'locPerLanguagePerContribution'],
+            ['dump', 'programmingLanguagePerContribution']
+        ]
+    }
 }
 
 def run(context):
