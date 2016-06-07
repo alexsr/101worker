@@ -70,11 +70,12 @@ class LocPerLanguagePerContribution(unittest.TestCase):
       def run_side_effect(*args, **kwargs):
         if args[1] == "lang":
           return "Python"
-          if args[1] == "loc":
+        if args[1] == "loc":
             return 15
-            self.env.get_derived_resource.side_effect = run_side_effect
-            run(self.env, res)
-            self.env.write_dump.assert_called_with('locPerLanguagePerContribution', {'python': {"Python": 57}})
+        self.env.get_derived_resource.side_effect = run_side_effect
+        run(self.env, res)
+        self.env.write_dump.assert_called_with('locPerLanguagePerContribution', {'python': {"Python": 57}})
+
     def test_new_contribution(self):
         res = {
             'file': 'contributions' + os.sep + 'ruby' + os.sep + 'sample.ruby'
