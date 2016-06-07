@@ -52,6 +52,37 @@ class CorrelationLocFeatures(unittest.TestCase):
         run(self.env)
         self.env.write_dump.assert_called_with('correlationLocFeatures',{})
 
+
+    def test_run(self):
+        def run_side_effect(*args, **kwargs):
+            if args[0] == "featuresPerContribution":
+                return {
+                        "haskellComposition": [
+                            "Closed serialization",
+                            "Cut",
+                            "Hierarchical company",
+                            "Total"
+                        ]
+                }
+            if args[0] == "locPerLanguagePerContribution":
+                return {
+                        "haskellComposition": {
+                            "Plain Text": 11,
+                            "unkown": 41,
+                            "Haskell": 147
+                        }
+                }
+            if args[0] == "programmingLanguagePerContribution":
+                return {
+                        "haskellComposition": [
+                            "Haskell"
+                        ]
+                }
+        self.env.read_dump.side_effect = run_side_effect
+        run(self.env)
+        self.env.write_dump.assert_called_with('correlationLocFeatures', {"Haskell": 36.75})
+
+
 def test():
     suite = unittest.TestLoader().loadTestsFromTestCase(CorrelationLocFeatures)
     unittest.TextTestRunner(verbosity=2).run(suite)
