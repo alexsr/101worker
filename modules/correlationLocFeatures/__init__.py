@@ -39,7 +39,15 @@ class CorrelationLocFeatures(unittest.TestCase):
 
     def setUp(self):
         self.env = Mock()
-        pass
+        def run_side_effect(*args, **kwargs):
+            if args[1] == "featuresPerContribution":
+                return {}
+            if args[1] == "locPerLanguagePerContribution":
+                return {}
+            if args[1] == "programmingLanguagePerContribution":
+                return {}
+        self.env.read_dump.side_effect = run_side_effect
+
 
     def test_run(self):
         pass
