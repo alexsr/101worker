@@ -1,10 +1,9 @@
 This is the readme file for our *main* module correlationLocFeatures.
 We also implemented the following modules, which are used to distribute the
 work necessary for this module:
-featuresPerContribution (TODO: Link)
-locPerLanguagePerContribution (TODO: Link)
-programmingLanguagePerContribution (TODO: Link)
-
+* featuresPerContribution (https://github.com/alexsr/101worker/tree/master/modules/featuresPerContribution)
+* locPerLanguagePerContribution (https://github.com/alexsr/101worker/tree/master/modules/locPerLanguagePerContribution)
+* programmingLanguagePerContribution (https://github.com/alexsr/101worker/tree/master/modules/programmingLanguagePerContribution)
 
 
 # Headline
