@@ -39,7 +39,10 @@ def run(context):
 
     correlation = {}
     for l in locs_per_language:
-        correlation[l] = locs_per_language[l] / len(features_per_language[l])
+        if len(features_per_language[l]) == 0:
+            correlation[l] = "undefined"
+        else:
+            correlation[l] = locs_per_language[l] / len(features_per_language[l])
     context.write_dump('correlationLocFeatures', correlation)
 
 import unittest
@@ -92,6 +95,30 @@ class CorrelationLocFeatures(unittest.TestCase):
         run(self.env)
         self.env.write_dump.assert_called_with('correlationLocFeatures', {"Haskell": 36.75})
 
+    def test_no_features(self):
+        def run_side_effect(*args, **kwargs):
+            if args[0] == "featuresPerContribution":
+                return {
+                        "haskellComposition": [
+                        ]
+                }
+            if args[0] == "locPerLanguagePerContribution":
+                return {
+                        "haskellComposition": {
+                            "Plain Text": 11,
+                            "unkown": 41,
+                            "Haskell": 147
+                        }
+                }
+            if args[0] == "programmingLanguagePerContribution":
+                return {
+                        "haskellComposition": [
+                            "Haskell"
+                        ]
+                }
+        self.env.read_dump.side_effect = run_side_effect
+        run(self.env)
+        self.env.write_dump.assert_called_with('correlationLocFeatures', {"Haskell": "undefined"})
 
 def test():
     suite = unittest.TestLoader().loadTestsFromTestCase(CorrelationLocFeatures)
