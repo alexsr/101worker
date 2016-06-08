@@ -27,13 +27,15 @@ def run(context):
     locs_per_language = {}
     features_per_language = {}
     for c, lang_locs in loc_pl_pc.items():
-        for l in plang_per_contrib[c]:
-            if l not in locs_per_language:
-                locs_per_language[l] = 0
-            locs_per_language[l] += lang_locs[l]
-            if l not in features_per_language:
-                features_per_language[l] = []
-            features_per_language[l] = list(set(features_per_contribution[c]) | set(features_per_language[l]))
+        if c in plang_per_contrib:
+            for l in plang_per_contrib[c]:
+                if l not in locs_per_language:
+                    locs_per_language[l] = 0
+                locs_per_language[l] += lang_locs[l]
+                if l not in features_per_language:
+                    features_per_language[l] = []
+                if c in features_per_contribution:
+                    features_per_language[l] = list(set(features_per_contribution[c]) | set(features_per_language[l]))
 
     correlation = {}
     for l in locs_per_language:
