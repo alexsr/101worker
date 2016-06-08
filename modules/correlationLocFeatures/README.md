@@ -1,3 +1,11 @@
+This is the readme file for our *main* module correlationLocFeatures.
+We also implemented the following modules, which are used to distribute the work necessary for this module:
+featuresPerContribution (TODO: Link)
+locPerLanguagePerContribution (TODO: Link)
+programmingLanguagePerContribution (TODO: Link)
+
+
+
 # Headline
 
 A module to calculate correlations between locs per language and 
