@@ -18,8 +18,10 @@ def run(context):
         pages = []
 
 # What this does: 1. Get list of all programming languages:
-#                     (loop through namespace language, select those who are "programming" languages)
-#                 2. Loop through contributions in wiki pages (see below) and search for "Uses::Language:<language>"
+#                     (loop through namespace language, select those who are
+# "programming" languages)
+#                 2. Loop through contributions in wiki pages (see below) and
+# search for "Uses::Language:<language>"
 
     languages = []
     for item in pages:

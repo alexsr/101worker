@@ -14,13 +14,16 @@ config = {
 }
 
 '''
-Creates a dump containing the lines of code of each language used in each contribution. Example:
+Creates a dump containing the lines of code of each language used in each
+contribution. Example:
 { "jdom": {
     "Java": 10,
     "Plain Text": 3
   }
 }
-This module solely relies on derived resources. Namely the loc and the lang resource. In this manner we can associate languages and lines of code per file to get a more accurate display of the languages used in the contribution.
+This module solely relies on derived resources. Namely the loc and the lang
+resource. In this manner we can associate languages and lines of code per file
+to get a more accurate display of the languages used in the contribution.
 '''
 
 def run(env, res):
@@ -98,5 +101,6 @@ class LocPerLanguagePerContribution(unittest.TestCase):
 
 
 def test():
-    suite = unittest.TestLoader().loadTestsFromTestCase(LocPerLanguagePerContribution)
+    suite = unittest.TestLoader().loadTestsFromTestCase(
+        LocPerLanguagePerContribution)
     unittest.TextTestRunner(verbosity=2).run(suite)

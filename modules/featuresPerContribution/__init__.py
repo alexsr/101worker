@@ -44,66 +44,64 @@ from unittest.mock import Mock, patch
 class FeaturesPerContribution(unittest.TestCase):
 
     def setUp(self):
-    	self.env=Mock()
-    	self.env.read_dump.return_value={
-             "pages":[
-    			{
-    				"namespace": "Feature", 
-                	"title": "Hierarchical company", 
-    			},	
-    			{	"namespace": "Feature",
-    				"title": "Mapping"
-    			},
-    			{
-    				"namespace": "Feature", 
-                	"title": "Parsing", 
-    			},
-    			{
-    				"namespace": "Feature", 
-                	"title": "Total", 
-    			},
-    			{
-    				"namespace": "Feature", 
-                	"title": "Cut", 
-    			},
-    			{
-                    "namespace": "Contribution",
-                    "title": "javaJson",
-                     "used_links": [
-                         "Language:JSON",
-                         "Language:Java",
-                         "Technology:javax.json",
-                         "API",
-                         "Contribution:dom",
-                         "Contribution:jdom",
-                         "Language:JSON",
-                         "Language:XML",
-                         "Contribution:javaJsonHttp",
-                         "Technology:Gradle",
-                         "Technology:Eclipse",
-                         "Implements::Feature:Hierarchical company",
-                         "Implements::Feature:Mapping",
-                         "Implements::Feature:Parsing",
-                         "Implements::Feature:Total",
-                         "Implements::Feature:Cut",
-                         "MemberOf::Theme:Java mapping",
-                         "Uses::Language:Java",
-                         "Uses::Language:JSON",
-                         "Uses::Technology:javax.json",
-                         "Uses::Technology:JUnit",
-                         "Uses::Technology:Gradle",
-                         "DevelopedBy::Contributor:rlaemmel"
-                     ]
-                }
-
-
-
-            ], 
-    	}
+      self.env=Mock()
+      self.env.read_dump.return_value = {
+          "pages":[
+              {
+                  "namespace": "Feature",
+                  "title": "Hierarchical company",
+              },
+              {
+                  "namespace": "Feature",
+                  "title": "Mapping"
+              },
+              {
+                  "namespace": "Feature",
+                  "title": "Parsing",
+              },
+              {
+                  "namespace": "Feature",
+                  "title": "Total",
+              },
+              {
+                  "namespace": "Feature",
+                  "title": "Cut",
+              },
+              {
+                  "namespace": "Contribution",
+                  "title": "javaJson",
+                  "used_links": [
+                      "Language:JSON",
+                      "Language:Java",
+                      "Technology:javax.json",
+                      "API",
+                      "Contribution:dom",
+                      "Contribution:jdom",
+                      "Language:JSON",
+                      "Language:XML",
+                      "Contribution:javaJsonHttp",
+                      "Technology:Gradle",
+                      "Technology:Eclipse",
+                      "Implements::Feature:Hierarchical company",
+                      "Implements::Feature:Mapping",
+                      "Implements::Feature:Parsing",
+                      "Implements::Feature:Total",
+                      "Implements::Feature:Cut",
+                      "MemberOf::Theme:Java mapping",
+                      "Uses::Language:Java",
+                      "Uses::Language:JSON",
+                      "Uses::Technology:javax.json",
+                      "Uses::Technology:JUnit",
+                      "Uses::Technology:Gradle",
+                      "DevelopedBy::Contributor:rlaemmel"
+                  ]
+              }
+          ],
+      }
 
     def test_pages(self):
         run(self.env)
-        self.env.write_dump.assert_called_with('featuresPerContribution', {'javaJson': ['Hierarchical company','Mapping','Parsing','Total','Cut']})
+        self.env.write_dump.assert_called_with('featuresPerContribution', {'javaJson': ['Hierarchical company', 'Mapping', 'Parsing', 'Total', 'Cut']})
 
     def test_empty(self):
         self.env.read_dump.return_value = {}
