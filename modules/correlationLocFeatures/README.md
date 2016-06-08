@@ -22,7 +22,8 @@ represents the average lines of code per feature for each programming language.
     "Haskell": 53.8,
     "Java": 105.0,
     "Python": 49.333333333333336
-}```
+}
+```
 This is a sample output of the module using just a few contributions. The value is
 calculated by dividing the lines of code per language by the features per language in
 the scope of the processed contributions.
