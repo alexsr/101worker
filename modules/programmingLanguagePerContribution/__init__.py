@@ -4,16 +4,18 @@ config = {
     'threadsafe': True,
     'behavior': {
         'creates': [['dump', 'programmingLanguagePerContribution']],
-        'uses': [['dump', 'pages']]
+        'uses': [['dump', 'wiki-links']]
     }
 }
 
 
 def run(context):
-    pages = context.read_dump('pages')
+    pages = context.read_dump('wiki-links')
 
-    if pages is not None and "pages" in pages.keys():
-        pages = pages["pages"]
+    if pages is not None and "wiki" in pages.keys():
+        pages = pages["wiki"]
+        if pages is not None and "pages" in pages.keys():
+            pages = pages["pages"]
     else:
         pages = []
 
@@ -25,22 +27,22 @@ def run(context):
 
     languages = []
     for item in pages:
-        if "namespace" in item.keys() and item["namespace"] == "Language":
-           if "title" in item.keys() and "used_links" in item.keys():
-                title = item["title"]
-                for x in item["used_links"]:
+        if "p" in item.keys() and item["p"] == "Language":
+           if "n" in item.keys() and "internal_links" in item.keys():
+                title = item["n"]
+                for x in item["internal_links"]:
                     if "programming language" in x:
                         languages += [title]
                         break;
 
     contributions = {}
     for item in pages:
-        if "namespace" in item.keys() and item["namespace"] == "Contribution":
-            if "title" in item.keys() and "used_links" in item.keys():
-                title = item["title"]
+        if "p" in item.keys() and item["p"] == "Contribution":
+            if "n" in item.keys() and "internal_links" in item.keys():
+                title = item["n"]
                 contributions[title] = []
                 for l in languages:
-                    contributions[title] += [l] if "Uses::Language:"+l in item["used_links"] else []
+                    contributions[title] += [l] if "Uses::Language:"+l in item["internal_links"] else []
     context.write_dump('programmingLanguagePerContribution', contributions)
 
 import unittest
@@ -52,47 +54,49 @@ class ProgrammingLanguagePerContribution(unittest.TestCase):
     def setUp(self):
         self.env = Mock()
         self.env.read_dump.return_value = {
-            "pages": [
-                {
-                    "namespace": "Language",
-                     "title": "Java",
-                     "used_links": [
-                         "OO programming language",
-                         "Technology:Java platform",
-                         "Technology:Java SE",
-                         "InstanceOf::OO programming language"
-                     ]
-                 },
-                {
-                    "namespace": "Contribution",
-                    "title": "javaJson",
-                     "used_links": [
-                         "Language:JSON",
-                         "Language:Java",
-                         "Technology:javax.json",
-                         "API",
-                         "Contribution:dom",
-                         "Contribution:jdom",
-                         "Language:JSON",
-                         "Language:XML",
-                         "Contribution:javaJsonHttp",
-                         "Technology:Gradle",
-                         "Technology:Eclipse",
-                         "Implements::Feature:Hierarchical company",
-                         "Implements::Feature:Mapping",
-                         "Implements::Feature:Parsing",
-                         "Implements::Feature:Total",
-                         "Implements::Feature:Cut",
-                         "MemberOf::Theme:Java mapping",
-                         "Uses::Language:Java",
-                         "Uses::Language:JSON",
-                         "Uses::Technology:javax.json",
-                         "Uses::Technology:JUnit",
-                         "Uses::Technology:Gradle",
-                         "DevelopedBy::Contributor:rlaemmel"
-                     ]
-                }
-            ]
+            "wiki": {
+                "pages": [
+                    {
+                        "p": "Language",
+                         "n": "Java",
+                         "internal_links": [
+                             "OO programming language",
+                             "Technology:Java platform",
+                             "Technology:Java SE",
+                             "InstanceOf::OO programming language"
+                         ]
+                     },
+                    {
+                        "p": "Contribution",
+                        "n": "javaJson",
+                         "internal_links": [
+                             "Language:JSON",
+                             "Language:Java",
+                             "Technology:javax.json",
+                             "API",
+                             "Contribution:dom",
+                             "Contribution:jdom",
+                             "Language:JSON",
+                             "Language:XML",
+                             "Contribution:javaJsonHttp",
+                             "Technology:Gradle",
+                             "Technology:Eclipse",
+                             "Implements::Feature:Hierarchical company",
+                             "Implements::Feature:Mapping",
+                             "Implements::Feature:Parsing",
+                             "Implements::Feature:Total",
+                             "Implements::Feature:Cut",
+                             "MemberOf::Theme:Java mapping",
+                             "Uses::Language:Java",
+                             "Uses::Language:JSON",
+                             "Uses::Technology:javax.json",
+                             "Uses::Technology:JUnit",
+                             "Uses::Technology:Gradle",
+                             "DevelopedBy::Contributor:rlaemmel"
+                         ]
+                    }
+                ]
+            }
         }
 
     def test_pages(self):
